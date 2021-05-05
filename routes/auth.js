@@ -5,10 +5,10 @@
 const { Router } = require('express');
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.json({
-        status: 'ok'
-    });
-});
+const { register, login, renewToken } = require('../controllers/auth');
+
+router.post('/register',    register);
+router.post('/login',       login);
+router.get('/renew-token',  renewToken);
 
 module.exports = router;

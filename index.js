@@ -5,6 +5,9 @@ require('dotenv').config();
 const app = express();
 app.use( express.static('public') );
 
+// Read and parse body of request
+app.use( express.json() );
+
 //auth routes
 app.use('/api/auth', require('./routes/auth') );
 
