@@ -3,14 +3,10 @@ require('dotenv').config();
 
 // Create express server
 const app = express();
-
 app.use( express.static('public') );
-//routes
-app.get('/test', (req, res) => {
-    res.json({
-        status: 'ok'
-    });
-})
+
+//auth routes
+app.use('/api/auth', require('./routes/auth') );
 
 // listen to requests
 app.listen( process.env.PORT, () => {
