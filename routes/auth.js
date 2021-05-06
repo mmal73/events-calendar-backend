@@ -3,7 +3,6 @@
 */
 
 const { Router } = require('express');
-const router = Router();
 const { check } = require('express-validator');
 
 const { register, login, renewToken } = require('../controllers/auth');
@@ -12,6 +11,8 @@ const { veryfyToken } = require('../middlewares/verify-token');
 
 const validateEmail = check('email', 'The emails must be an email valid').isEmail();
 const validatePassword = check('password', 'The password is required and min 8 characters').isLength(8)
+
+const router = Router();
 
 router.post('/register',
     [
