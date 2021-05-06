@@ -1,9 +1,10 @@
 const CalendarEvent = require('../models/CalendarEvent');
 
-const getEvents = ( req, res ) => {
+const getEvents = async( req, res ) => {
+    const events = await CalendarEvent.find().populate('user', 'name');
     return res.json({
         status: true,
-        msg: 'getEvents'
+        events
     });
 }
 const createEvent = async( req, res ) => {
