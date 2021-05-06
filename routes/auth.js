@@ -8,6 +8,7 @@ const { check } = require('express-validator');
 
 const { register, login, renewToken } = require('../controllers/auth');
 const { validate } = require('../middlewares/validate-body');
+const { veryfyToken } = require('../middlewares/verify-token');
 
 const validateEmail = check('email', 'The emails must be an email valid').isEmail();
 const validatePassword = check('password', 'The password is required and min 8 characters').isLength(8)
@@ -28,6 +29,9 @@ router.post('/login',
         validate
     ],
     login);
-router.get('/renew-token',renewToken);
+router.get('/renew-token',
+    veryfyToken,
+    renewToken
+);
 
 module.exports = router;
