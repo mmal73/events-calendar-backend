@@ -1,14 +1,19 @@
 const express = require('express');
 require('dotenv').config();
+const { dbConection } = require('./config/database');
 
 // Create express server
 const app = express();
+// database
+dbConection();
+
+// main app
 app.use( express.static('public') );
 
 // Read and parse body of request
 app.use( express.json() );
 
-//auth routes
+//routes
 app.use('/api/auth', require('./routes/auth') );
 
 // listen to requests
