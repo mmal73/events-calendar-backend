@@ -69,11 +69,40 @@ const updateEvent = async( req, res ) => {
     }
 
 }
-const deleteEvent = ( req, res ) => {
-    return res.json({
-        status: true,
-        msg: 'deleteEvent'
-    });
+const deleteEvent = async( req, res ) => {
+
+    const eventId = req.params.id;
+    const userId = req._id
+
+    try {
+        const event = await CalendarEvent.findById(eventId);
+        if( !event ){
+            return res.status(404).json({
+                status: false,
+                message: 'Event not found'
+            });
+        }
+        if(event.user.toString() !== userId){
+            return res.status(401).json({
+                status: false,
+                message: "You cannot delete this event"
+            });
+        }
+
+        await CalendarEvent.findByIdAndDelete( eventId );
+
+        return res.json({
+            status: true,
+            message: "Event Deleted"
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            status: false,
+            message: 'An error has ocurred'
+        });
+    }
+
 }
 
 module.exports = {
