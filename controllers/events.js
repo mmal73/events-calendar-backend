@@ -16,7 +16,7 @@ const createEvent = async( req, res ) => {
         newEvent.user = req._id;
         
         const eventSaved = await newEvent.save();
-        return res.status(500).json({
+        return res.json({
             status: true,
             event: eventSaved
         });
